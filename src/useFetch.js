@@ -7,6 +7,7 @@ const defaultState = {
 };
 
 const useFetch = (projectId) => {
+  // '비동기 컴포넌트 상태 변경' 제어를 위한 변수
   const isMounted = useRef(true);
   const promiseRef = useRef(null);
 
@@ -39,6 +40,7 @@ const useFetch = (projectId) => {
           throw res.status;
         }
 
+        // 테스트를 위한 딜레이 추가
         promise = new Promise((resolve) => {
           setTimeout(resolve, 2000);
         });
@@ -63,10 +65,10 @@ const useFetch = (projectId) => {
         return;
       }
       // 서버 api 추가 시 대응 수정이 필요한 부분
-      const newPosts = result.slice(0, posts.length + 3);
+      result = result.slice(0, posts.length + 3);
       setState({
         isLoading: false,
-        posts: newPosts,
+        posts: result,
         error: null,
       });
     })();
