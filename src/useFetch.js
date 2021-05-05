@@ -13,6 +13,8 @@ const useFetch = (projectId) => {
   const [state, setState] = useState(initialState);
 
   const fetchPosts = () => {
+    let lastPostId = lastPostIdRef.current;
+
     setState((currentState) => ({
       ...currentState,
       isLoading: true,
@@ -34,7 +36,10 @@ const useFetch = (projectId) => {
         });
         result = await res.json();
       } catch (e) {
-        if (projectId === projectIdRef.current) {
+        if (
+          projectId === projectIdRef.current &&
+          lastPostId === lastPostIdRef.current
+        ) {
           setState((currentState) => ({
             ...currentState,
             isLoading: false,
@@ -43,7 +48,10 @@ const useFetch = (projectId) => {
         }
         return;
       }
-      if (projectId === projectIdRef.current) {
+      if (
+        projectId === projectIdRef.current &&
+        lastPostId === lastPostIdRef.current
+      ) {
         // 서버 api 추가 시 대응 수정이 필요한 부분
         result = result.slice(
           lastPostIdRef.current === null
