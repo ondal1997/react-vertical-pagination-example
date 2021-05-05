@@ -16,12 +16,12 @@ const Page = ({ projectId }) => {
       {error ? (
         <>
           <h1>{error.toString()}</h1>
-          <button onClick={fetchPosts}>재시도</button>
+          <button onClick={() => { fetchPosts(); }}>재시도</button>
         </>
       ) : isLoading ? (
         <h1>Loading...</h1>
       ) : (
-        <button onClick={fetchPosts}>더 보기</button>
+        <button onClick={() => { fetchPosts(); }}>더 보기</button>
       )}
     </>
   );
